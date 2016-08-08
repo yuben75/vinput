@@ -1,0 +1,17 @@
+
+KERNEL_VERSION	 =`uname -a | cut -f3 -d" "`
+KERNEL_DIR		 =/home/dikey/yocto/imx-kernel
+BUILD_DIR		:=$(shell pwd)
+VERBOSE 		 = 0
+
+all: modules
+
+modules:
+	make ARCH=arm CROSS_COMPILE=arm-poky-linux-gnueabi- -C $(KERNEL_DIR) M=$(BUILD_DIR) KBUILD_VERBOSE=$(VERBOSE) modules
+	
+clean:
+	rm -f $(BUILD_DIR)/*.o
+	rm -f $(BUILD_DIR)/*.ko
+	rm -f $(BUILD_DIR)/*.mod.c
+	rm -f $(BUILD_DIR)/*~
+	rm -f ./*.ko
